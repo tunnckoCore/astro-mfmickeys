@@ -1,0 +1,62 @@
+---
+import "../global.css";
+import Mint from "../islands/mint";
+import {
+  arrayBufferToBase64,
+  getEthscriptionBySha,
+  getRandomIndex,
+  sha256,
+  tryFetch,
+} from "../utils.mjs";
+
+const { origin, searchParams } = new URL(Astro.request.url);
+const id = searchParams.get("__id");
+const randomId = id || getRandomIndex(190);
+
+const { buf: imgBuf, type, url } = await tryFetch(origin, randomId);
+
+const dataURL = `data:${type};base64,${arrayBufferToBase64(imgBuf!)}`;
+const sha = await sha256(dataURL);
+const ethscription = await getEthscriptionBySha(sha);
+---
+
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width" />
+    <meta name="generator" content={Astro.generator} />
+    <title>
+      MfMickeys Ethscriptions - homage to Mfers, Mfpurrs, and Mickey Mouse
+    </title>
+  </head>
+  <body class="bg-slate-950 px-4 text-slate-100 sm:px-0">
+    <div class="mx-auto flex max-w-2xl flex-col items-center justify-center">
+      <section class="mt-8 flex flex-col items-center justify-center gap-4">
+        <h1 class="text-5xl font-extrabold">MfMickeys</h1>
+        <div class="text-center">
+          A delightful homage to the iconic <strong>Mfpurrs</strong> on <a
+            href="">Ethscriptions</a
+          >, the amusing <strong>Mfers</strong> on OpenSea, and the timeless charm
+          of <strong>Mickey Mouse</strong>. This unique combo brings together
+          the best of all worlds, blending the artistic allure of the Ethereum
+          blockchain with the nostalgic magic of everyone's favorite mouse.
+          Mfpurrs have 50% discount.
+        </div>
+        <div class="flex flex-col gap-4">
+          <Mint
+            client:load
+            info={{
+              id: randomId,
+              sha: sha,
+              type,
+              url,
+              ethscription: ethscription,
+              dataURL: dataURL,
+            }}
+          />
+        </div>
+      </section>
+    </div>
+  </body>
+</html>

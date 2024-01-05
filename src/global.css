@@ -1,0 +1,19 @@
+strong {
+  @apply font-bold;
+}
+
+em {
+  @apply italic;
+}
+
+p {
+  display: block;
+}
+
+h2[id],
+h3[id],
+h4[id],
+h5[id],
+h6[id] {
+  @apply border-b border-dashed border-gray-400;
+}
