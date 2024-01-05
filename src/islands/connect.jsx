@@ -72,11 +72,11 @@ export default function ConnectButton({ info }) {
   const { data, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
-  const PAUSE = false;
+  const PAUSE = true;
   const mintImage = async () => {
     if (PAUSE) {
       alert(
-        "Paused for monitoring. There are 2300+ transaction shown on etherscan, on Ethscriptions.com it shows 1700+ created. It may or may not be sold out.",
+        "Sold out, good job! https://twitter.com/wgw_eth/status/1743106766961803768",
       );
       return;
     }
