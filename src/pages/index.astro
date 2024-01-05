@@ -14,7 +14,7 @@ const customId = searchParams.get("__id");
 const randomId = getRandomIndex(1908);
 
 const skip = [551, 802, 1108, 1476, 1417, 1697, 1696];
-const isSkip = skip.includes(randomId) || randomId > 1300;
+const isSkip = skip.includes(randomId) || randomId > 1908;
 
 if (isSkip && !customId) {
   return Astro.redirect(origin);
@@ -50,6 +50,9 @@ const ethscription = await getEthscriptionBySha(sha);
           of <strong>Mickey Mouse</strong>. This unique combo brings together
           the best of all worlds, blending the artistic allure of the Ethereum
           blockchain with the nostalgic magic of everyone's favorite mouse.
+        </div>
+        <div class="font-bold">
+          Mfers, Mfpurrs & DigiJoint holders with 50% discount.
         </div>
         <div class="flex flex-col gap-4">
           <Mint
