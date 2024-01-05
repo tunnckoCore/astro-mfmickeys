@@ -13,8 +13,8 @@ import { useEffect, useState } from "react";
 import { getEthscriptionBySha } from "../utils.mjs";
 
 const pricing = {
-  discount: "0.001",
-  public: "0.002",
+  discount: contract.allowlistPrice,
+  public: contract.mintPrice,
 };
 
 async function checkAllowlist(origin, name, address) {
@@ -38,9 +38,10 @@ export default function ConnectButton({ info }) {
   useEffect(() => {
     async function load() {
       const { origin } = new URL(window.location.href);
-      const isMfer = await checkAllowlist(origin, "mfers", address);
-      const isMfpurr = await checkAllowlist(origin, "mfpurrs", address);
-      const isDigijoint = await checkAllowlist(origin, "digijoints", address);
+      const addr = address?.toLowerCase() || "";
+      const isMfer = await checkAllowlist(origin, "mfers", addr);
+      const isMfpurr = await checkAllowlist(origin, "mfpurrs", addr);
+      const isDigijoint = await checkAllowlist(origin, "digijoints", addr);
 
       const price =
         isMfer || isMfpurr || isDigijoint ? pricing.discount : pricing.public;
@@ -50,10 +51,6 @@ export default function ConnectButton({ info }) {
 
     load();
   }, [address]);
-
-  address = address?.toLowerCase();
-
-  const isDeployer = address === contract.deployer.toLowerCase();
 
   const { config, error } = usePrepareContractWrite({
     address: contract.address,
@@ -69,6 +66,7 @@ export default function ConnectButton({ info }) {
     functionName: "ethscribe",
     args: [info.dataURL],
     chainId: contract.chainId,
+    value: parseEther(price),
   });
 
   const { data, write } = useContractWrite(config);
@@ -107,10 +105,7 @@ export default function ConnectButton({ info }) {
     // const price =
     //   isMfer || isMfpurr || isDigijoint ? pricing.discount : pricing.public;
 
-    await write?.({
-      // value: isDeployer ? 0 : parseEther(price),
-      value: parseEther(price),
-    });
+    await write?.();
   };
 
   return (

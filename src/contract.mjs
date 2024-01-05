@@ -1,7 +1,8 @@
 export const chainId = 5;
 export const address = `0x196773281df0BfFC386A5c0829ED45BED645fD29`;
-export const deployer = `0xA20C07F94A127fD76E61fbeA1019cCe759225002`;
+// export const deployer = `0xA20C07F94A127fD76E61fbeA1019cCe759225002`;
 export const mintPrice = "0.002";
+export const allowlistPrice = "0.001";
 
 // export const abi = [
 //   { inputs: [], name: "MintClosed", type: "error" },
