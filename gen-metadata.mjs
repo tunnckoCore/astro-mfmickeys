@@ -36,11 +36,11 @@ const items = await pMapSeries(files, async (filename) => {
 
   attributes.push({ trait_type: "sha256", value: sha });
 
-  // const ethscription = await getEthscriptionBySha(sha);
-  // const ethscription_id =
-  //   ethscription.data && ethscription.data.result
-  //     ? ethscription.data.ethscription.transaction_hash
-  //     : "";
+  const ethscription = await getEthscriptionBySha(sha);
+  const ethscription_id =
+    ethscription.data && ethscription.data.result
+      ? ethscription.data.ethscription.transaction_hash
+      : "";
 
   const item = {
     sha,
@@ -49,7 +49,7 @@ const items = await pMapSeries(files, async (filename) => {
     description: `Ethscription MfMickeys, minted on January 4, 2024. Homage to Mfers, Mfpurrs, and Mickey Mouse.`,
     item_attributes: attributes,
     external_url: `https://mfmickeys.vercel.app/images/${filename}`,
-    ethscription_id: "",
+    ethscription_id,
   };
 
   console.log(item);

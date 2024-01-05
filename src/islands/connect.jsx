@@ -30,6 +30,15 @@ async function checkAllowlist(origin, name, address) {
   return res;
 }
 
+function isCreator(address) {
+  return (
+    address.toLowerCase() !=
+      "0xA20C07F94A127fD76E61fbeA1019cCe759225002".toLowerCase() ||
+    address.toLowerCase() !=
+      "0x3C61DED7Aea16a3E018038201aDCD1C8feA7C2D4".toLowerCase()
+  );
+}
+
 export default function ConnectButton({ info }) {
   const { open } = useWeb3Modal();
   let { address } = useAccount();
@@ -66,7 +75,8 @@ export default function ConnectButton({ info }) {
     functionName: "ethscribe",
     args: [info.dataURL],
     chainId: contract.chainId,
-    value: parseEther(price),
+    // value: parseEther(price),
+    value: 0,
   });
 
   const { data, write } = useContractWrite(config);
@@ -74,12 +84,7 @@ export default function ConnectButton({ info }) {
 
   // const PAUSE = true;
   const mintImage = async () => {
-    if (
-      address.toLowerCase() !=
-        "0xA20C07F94A127fD76E61fbeA1019cCe759225002".toLowerCase() ||
-      address.toLowerCase() !=
-        "0x3C61DED7Aea16a3E018038201aDCD1C8feA7C2D4".toLowerCase()
-    ) {
+    if (!isCreator(address)) {
       alert(
         "Sold out, good job! https://twitter.com/wgw_eth/status/1743107637250539891",
       );
@@ -112,7 +117,7 @@ export default function ConnectButton({ info }) {
     await write?.();
   };
 
-  console.log("info.ethscription", info.ethscription);
+  // console.log("info.ethscription", info.ethscription);
 
   return (
     <>
