@@ -10,7 +10,7 @@ import { parseEther } from "viem";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import * as contract from "../contract.mjs";
 import { useEffect, useState } from "react";
-import { getEthscriptionBySha, tryFetch } from "../utils.mjs";
+import { getEthscriptionBySha } from "../utils.mjs";
 
 const pricing = {
   discount: contract.allowlistPrice,
@@ -133,8 +133,8 @@ export default function ConnectButton({ info }) {
       </h2>
       <button
         className={
-          `rounded-md px-2 py-1.5 font-semibold` +
-          (address ? " bg-purple-500" : " bg-blue-500")
+          `rounded-md px-2 py-1.5 font-semibold ` +
+          (address ? "bg-purple-500" : "bg-blue-500")
         }
         onClick={() => open()}
       >
