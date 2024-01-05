@@ -72,15 +72,16 @@ export default function ConnectButton({ info }) {
   const { data, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
-  const PAUSE = true;
+  // const PAUSE = true;
   const mintImage = async () => {
     if (
-      PAUSE &&
-      (address != "0xA20C07F94A127fD76E61fbeA1019cCe759225002".toLowerCase() ||
-        address != "0x3C61DED7Aea16a3E018038201aDCD1C8feA7C2D4".toLowerCase())
+      address.toLowerCase() !=
+        "0xA20C07F94A127fD76E61fbeA1019cCe759225002".toLowerCase() ||
+      address.toLowerCase() !=
+        "0x3C61DED7Aea16a3E018038201aDCD1C8feA7C2D4".toLowerCase()
     ) {
       alert(
-        "Sold out, good job! https://twitter.com/wgw_eth/status/1743106865335058640",
+        "Sold out, good job! https://twitter.com/wgw_eth/status/1743107637250539891",
       );
       return;
     }
