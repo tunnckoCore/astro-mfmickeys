@@ -100,6 +100,8 @@ export default function ConnectButton({ info }) {
     await write?.();
   };
 
+  console.log("info.ethscription", info.ethscription);
+
   return (
     <>
       <button
@@ -118,7 +120,7 @@ export default function ConnectButton({ info }) {
       <div
         className={
           `flex w-full items-center justify-center` +
-          (info.ethscription?.data?.result ? "border-4 border-red-500" : "")
+          (info.ethscription?.data?.result ? " border-4 border-red-500" : "")
         }
       >
         <img
