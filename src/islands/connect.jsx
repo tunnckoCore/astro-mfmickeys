@@ -9,12 +9,50 @@ import {
 import { parseEther } from "viem";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import * as contract from "../contract.mjs";
+import { useEffect, useState } from "react";
+
+const pricing = {
+  discount: "0.001",
+  public: "0.002",
+};
+
+async function checkAllowlist(origin, name, address) {
+  let res = null;
+  try {
+    res = await fetch(`${origin}/allowlists/${name}.json`)
+      .then((res) => res.json())
+      .then((x) => x[address]);
+  } catch (e) {
+    return false;
+  }
+
+  return res;
+}
 
 export default function ConnectButton({ info }) {
   const { open } = useWeb3Modal();
-  const { address } = useAccount();
+  let { address } = useAccount();
+  const [price, setPrice] = useState("0.002");
 
-  const isDeployer = address?.toLowerCase() === contract.deployer.toLowerCase();
+  useEffect(() => {
+    async function load() {
+      const { origin } = new URL(window.location.href);
+      const isMfer = await checkAllowlist(origin, "mfers", address);
+      const isMfpurr = await checkAllowlist(origin, "mfpurrs", address);
+      const isDigijoint = await checkAllowlist(origin, "digijoints", address);
+
+      const price =
+        isMfer || isMfpurr || isDigijoint ? pricing.discount : pricing.public;
+
+      setPrice(price);
+    }
+
+    load();
+  }, [address]);
+
+  address = address?.toLowerCase();
+
+  const isDeployer = address === contract.deployer.toLowerCase();
 
   const { config, error } = usePrepareContractWrite({
     address: contract.address,
@@ -28,7 +66,6 @@ export default function ConnectButton({ info }) {
       },
     ],
     functionName: "ethscribe",
-    value: isDeployer ? 0 : parseEther(contract.mintPrice),
     args: [info.dataURL],
     chainId: contract.chainId,
   });
@@ -61,7 +98,18 @@ export default function ConnectButton({ info }) {
     console.log("info ->", JSON.stringify(info));
     console.log("contract ->", contract);
 
-    await write?.();
+    // const { origin } = new URL(window.location.href);
+    // const isMfer = await checkAllowlist(origin, "mfers", address);
+    // const isMfpurr = await checkAllowlist(origin, "mfpurrs", address);
+    // const isDigijoint = await checkAllowlist(origin, "digijoints", address);
+
+    // const price =
+    //   isMfer || isMfpurr || isDigijoint ? pricing.discount : pricing.public;
+
+    await write?.({
+      // value: isDeployer ? 0 : parseEther(price),
+      value: parseEther(price),
+    });
   };
 
   return (
@@ -95,7 +143,7 @@ export default function ConnectButton({ info }) {
         className="rounded-md bg-green-500 px-2 py-1.5 font-semibold"
         onClick={mintImage}
       >
-        Mint for {contract.mintPrice} ETH
+        Mint for {price} ETH
       </button>
       <button
         className="rounded-md bg-orange-500 px-2 py-1.5 font-semibold"

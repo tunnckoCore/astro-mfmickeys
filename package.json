@@ -7,7 +7,7 @@
     "start": "astro dev",
     "build": "astro build",
     "astro": "astro",
-    "pregen-meta": "node gen-metadata.mjs && cp -R ./data/images ./public/images"
+    "pregen-meta": "node gen-metadata.mjs && cp -R ./data/images ./public"
   },
   "dependencies": {
     "@astrojs/mdx": "^2.0.3",

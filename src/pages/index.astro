@@ -10,10 +10,19 @@ import {
 } from "../utils.mjs";
 
 const { origin, searchParams } = new URL(Astro.request.url);
-const id = searchParams.get("__id");
-const randomId = id || getRandomIndex(190);
+const customId = searchParams.get("__id");
+const randomId = getRandomIndex(1908);
 
-const { buf: imgBuf, type, url } = await tryFetch(origin, randomId);
+const skip = [551, 802, 1108, 1476, 1417, 1697, 1696];
+const isSkip = skip.includes(randomId) || randomId > 1300;
+
+if (isSkip && !customId) {
+  return Astro.redirect(origin);
+}
+
+const id = customId || randomId;
+
+const { buf: imgBuf, type, url } = await tryFetch(origin, id);
 
 const dataURL = `data:${type};base64,${arrayBufferToBase64(imgBuf!)}`;
 const sha = await sha256(dataURL);
@@ -46,14 +55,7 @@ const ethscription = await getEthscriptionBySha(sha);
         <div class="flex flex-col gap-4">
           <Mint
             client:load
-            info={{
-              id: randomId,
-              sha: sha,
-              type,
-              url,
-              ethscription: ethscription,
-              dataURL: dataURL,
-            }}
+            info={{ id, sha, type, url, ethscription, dataURL }}
           />
         </div>
       </section>

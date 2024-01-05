@@ -83,7 +83,7 @@ export async function tryFetch(origin, id) {
     resp.type = "image/png";
   } catch (e) {
     try {
-      resp.url = `/images/${id}.png`;
+      resp.url = `/images/${id}.gif`;
       resp.buf = await fetch(`${origin}/images/${id}.gif`).then((x) =>
         x.arrayBuffer(),
       );
