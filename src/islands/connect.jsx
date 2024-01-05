@@ -72,7 +72,7 @@ export default function ConnectButton({ info }) {
   const { data, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
-  const PAUSE = true;
+  const PAUSE = false;
   const mintImage = async () => {
     if (PAUSE) {
       alert(
