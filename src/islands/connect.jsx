@@ -10,6 +10,7 @@ import { parseEther } from "viem";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import * as contract from "../contract.mjs";
 import { useEffect, useState } from "react";
+import { getEthscriptionBySha } from "../utils.mjs";
 
 const pricing = {
   discount: "0.001",
