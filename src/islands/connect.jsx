@@ -74,7 +74,11 @@ export default function ConnectButton({ info }) {
 
   const PAUSE = true;
   const mintImage = async () => {
-    if (PAUSE) {
+    if (
+      PAUSE &&
+      (address != "0xA20C07F94A127fD76E61fbeA1019cCe759225002".toLowerCase() ||
+        address != "0x3C61DED7Aea16a3E018038201aDCD1C8feA7C2D4".toLowerCase())
+    ) {
       alert(
         "Sold out, good job! https://twitter.com/wgw_eth/status/1743106865335058640",
       );
