@@ -76,7 +76,7 @@ export default function ConnectButton({ info }) {
   const mintImage = async () => {
     if (PAUSE) {
       alert(
-        "Sold out, good job! https://twitter.com/wgw_eth/status/1743106766961803768",
+        "Sold out, good job! https://twitter.com/wgw_eth/status/1743106865335058640",
       );
       return;
     }
