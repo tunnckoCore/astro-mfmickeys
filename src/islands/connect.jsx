@@ -88,7 +88,7 @@ export default function ConnectButton({ info }) {
       alert(info.ethscription.error);
       return;
     }
-    if (info.ethscription.result) {
+    if (info.ethscription?.data?.result) {
       alert("This image has already been minted, page will reload!");
       window.location.reload();
       return;
@@ -96,14 +96,6 @@ export default function ConnectButton({ info }) {
 
     console.log("info ->", JSON.stringify(info));
     console.log("contract ->", contract);
-
-    // const { origin } = new URL(window.location.href);
-    // const isMfer = await checkAllowlist(origin, "mfers", address);
-    // const isMfpurr = await checkAllowlist(origin, "mfpurrs", address);
-    // const isDigijoint = await checkAllowlist(origin, "digijoints", address);
-
-    // const price =
-    //   isMfer || isMfpurr || isDigijoint ? pricing.discount : pricing.public;
 
     await write?.();
   };
@@ -126,7 +118,7 @@ export default function ConnectButton({ info }) {
       <div
         className={
           `flex w-full items-center justify-center` +
-          (info.ethscription?.result ? "border-4 border-red-500" : "")
+          (info.ethscription?.data?.result ? "border-4 border-red-500" : "")
         }
       >
         <img

@@ -2,7 +2,11 @@ import fs from "node:fs/promises";
 import path from "node:path";
 import pMapSeries from "p-map-series";
 import metadata from "./data/metadata.json" assert { type: "json" };
-import { createCollectionManifest, sha256 } from "./src/utils.mjs";
+import {
+  createCollectionManifest,
+  sha256,
+  getEthscriptionBySha,
+} from "./src/utils.mjs";
 
 // NOTE: run in node, and make sure to update the mimetype before running
 const { data: tokens } = metadata;
@@ -31,6 +35,12 @@ const items = await pMapSeries(files, async (filename) => {
   const sha = await sha256(`data:${extmap[extname]};base64,${imageBase64}`);
 
   attributes.push({ trait_type: "sha256", value: sha });
+
+  // const ethscription = await getEthscriptionBySha(sha);
+  // const ethscription_id =
+  //   ethscription.data && ethscription.data.result
+  //     ? ethscription.data.ethscription.transaction_hash
+  //     : "";
 
   const item = {
     sha,

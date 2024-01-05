@@ -1,5 +1,6 @@
-export const chainId = 5;
-export const address = `0x196773281df0BfFC386A5c0829ED45BED645fD29`;
+export const chainId = 1;
+// export const address = `0x196773281df0BfFC386A5c0829ED45BED645fD29`;
+export const address = `0xaA58B60eeFDBdA3b6F29BD4bfC3D665f95988F81`;
 export const mintPrice = "0.002";
 export const allowlistPrice = "0.001";
 
