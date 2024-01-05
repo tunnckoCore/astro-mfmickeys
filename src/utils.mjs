@@ -73,26 +73,34 @@ export async function getEthscriptionBySha(sha) {
 }
 
 export async function tryFetch(origin, id) {
-  let resp = { buf: null, type: "", url: "" };
-  let buf = null;
+  let ext = null;
+  let resp = null;
 
   try {
-    buf = await fetch(`${origin}/images/${id}.png`).then((x) =>
-      x.arrayBuffer(),
-    );
-    resp.type = "image/png";
-    resp.url = `/images/${id}.png`;
+    resp = await fetch(`${origin}/images/${id}.png`);
+
+    if (!resp.ok) {
+      throw new Error("not found");
+    }
+
+    ext = "png";
   } catch (e) {
-    try {
-      buf = await fetch(`${origin}/images/${id}.gif`).then((x) =>
-        x.arrayBuffer(),
-      );
-      resp.type = "image/gif";
-      resp.url = `/images/${id}.gif`;
-    } catch (er) {}
+    resp = null;
+    ext = null;
   }
 
-  resp.buf = buf;
+  if (!resp) {
+    try {
+      resp = await fetch(`${origin}/images/${id}.gif`);
+      if (!resp.ok) {
+        throw new Error("not found");
+      }
+      ext = "gif";
+    } catch (er) {
+      resp = null;
+      ext = null;
+    }
+  }
 
-  return resp;
+  return { ext, resp };
 }

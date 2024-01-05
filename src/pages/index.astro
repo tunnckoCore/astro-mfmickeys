@@ -20,11 +20,17 @@ if (isSkip && !customId) {
   return Astro.redirect(origin);
 }
 
-const id = customId || randomId;
+const id = Number(customId || randomId);
 
-const { buf: imgBuf, type, url } = await tryFetch(origin, id);
+console.log({ origin, id });
 
-const dataURL = `data:${type};base64,${arrayBufferToBase64(imgBuf!)}`;
+const { resp, ext } = await tryFetch(origin, id);
+console.log({ origin, id, ext });
+
+const dataURL = `data:image/${ext};base64,${arrayBufferToBase64(
+  await resp?.arrayBuffer()!,
+)}`;
+
 const sha = await sha256(dataURL);
 const ethscription = await getEthscriptionBySha(sha);
 ---
@@ -55,10 +61,7 @@ const ethscription = await getEthscriptionBySha(sha);
           Mfers, Mfpurrs & DigiJoint holders with 50% discount.
         </div>
         <div class="flex flex-col gap-4">
-          <Mint
-            client:load
-            info={{ id, sha, type, url, ethscription, dataURL }}
-          />
+          <Mint client:load info={{ id, sha, ext, ethscription, dataURL }} />
         </div>
       </section>
     </div>

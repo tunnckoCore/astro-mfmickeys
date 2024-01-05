@@ -43,13 +43,13 @@ export async function GET({ params, ...rest }) {
   }
 
   const { origin } = new URL(rest.url);
-  const { buf: imgBuf, type } = await tryFetch(origin, params.id);
+  const { resp, ext } = await tryFetch(origin, params.id);
 
-  return new Response(imgBuf, {
+  return new Response(await resp?.arrayBuffer(), {
     status: 200,
     headers: {
-      "content-type": type,
-      "cache-control": "public, max-age=31536000",
+      "content-type": `image/${ext}`,
+      "cache-control": "public, max-age=100",
     },
   });
 

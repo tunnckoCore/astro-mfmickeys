@@ -10,7 +10,7 @@ import { parseEther } from "viem";
 import { usePrepareContractWrite, useContractWrite } from "wagmi";
 import * as contract from "../contract.mjs";
 import { useEffect, useState } from "react";
-import { getEthscriptionBySha } from "../utils.mjs";
+import { getEthscriptionBySha, tryFetch } from "../utils.mjs";
 
 const pricing = {
   discount: contract.allowlistPrice,
@@ -123,7 +123,7 @@ export default function ConnectButton({ info }) {
       >
         <img
           className="h-96 w-full"
-          src={info.url}
+          src={`/mfmickey/${info.id}`}
           alt={`Ethscription MfMickey #${info.id}`}
         />
       </div>
