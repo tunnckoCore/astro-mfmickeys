@@ -119,8 +119,8 @@ export default function ConnectButton({ info }) {
 
       <div
         className={
-          `flex w-full items-center justify-center` +
-          (info.ethscription?.data?.result ? " border-4 border-red-500" : "")
+          `flex w-full items-center justify-center ` +
+          (info.ethscription?.data?.result ? "border-4 border-red-500" : "")
         }
       >
         <img
@@ -130,8 +130,13 @@ export default function ConnectButton({ info }) {
         />
       </div>
       <button
-        className="rounded-md bg-green-500 px-2 py-1.5 font-semibold"
-        onClick={mintImage}
+        className={
+          `rounded-md px-2 py-1.5 font-semibold ` +
+          (info.ethscription?.data?.result
+            ? "cursor-not-allowed bg-red-500"
+            : "bg-green-500")
+        }
+        onClick={info.ethscription?.data?.result ? () => {} : mintImage}
       >
         Mint for {price} ETH
       </button>
