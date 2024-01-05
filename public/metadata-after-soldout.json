@@ -2,10 +2,10 @@
   "name": "mfmickeys",
   "description": "A delightful homage to the iconic Mfpurrs on Ethscriptions, the amusing Mfers on OpenSea, and the timeless charm of Mickey Mouse. This unique combo brings together the best of all worlds, blending the artistic allure of the Ethereum blockchain with the nostalgic magic of everyone's favorite mouse.",
   "total_supply": 1928,
-  "logo_image_uri": "esc://ethscriptions/0xc598906da15fa21e63c4b3acf40a41c3fc263963ce0deccefb5edaef54ba64b9/data",
+  "logo_image_uri": "esc://ethscriptions/0x899d82b5c6025f0c8f379cd23f1eece508a55230f03ba36d9d9646d15638588d/data",
   "banner_image_uri": "",
   "background_color": "#001",
-  "twitter_link": "",
+  "twitter_link": "https://twitter.com/mfmickey_eth",
   "website_link": "https://mfmickeys.vercel.app",
   "discord_link": "",
   "collection_items": [
