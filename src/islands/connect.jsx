@@ -75,7 +75,9 @@ export default function ConnectButton({ info }) {
   const PAUSE = true;
   const mintImage = async () => {
     if (PAUSE) {
-      alert("Paused");
+      alert(
+        "Paused for monitoring. There are 2300+ transaction shown on etherscan, on Ethscriptions.com it shows 1700+ created. It may or may not be sold out.",
+      );
       return;
     }
     const res = await getEthscriptionBySha(info.sha);
