@@ -22,10 +22,7 @@ if (isSkip && !customId) {
 
 const id = Number(customId || randomId);
 
-console.log({ origin, id });
-
 const { resp, ext } = await tryFetch(origin, id);
-console.log({ origin, id, ext });
 
 const dataURL = `data:image/${ext};base64,${arrayBufferToBase64(
   await resp?.arrayBuffer()!,

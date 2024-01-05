@@ -63,7 +63,7 @@ export async function getEthscriptionBySha(sha) {
   }
 
   if (res?.result) {
-    console.log("already exists", res);
+    console.log("already exists");
     // alert("This image has already been minted, page will reload!");
     // window.location.reload();
     return { data: res };

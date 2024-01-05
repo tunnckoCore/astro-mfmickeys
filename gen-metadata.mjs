@@ -63,6 +63,6 @@ const collectionManifest = createCollectionManifest();
 collectionManifest.collection_items = items;
 
 await fs.writeFile(
-  "./public/metadata.json",
+  "./public/metadata-after-soldout.json",
   JSON.stringify(collectionManifest, null, 2),
 );
