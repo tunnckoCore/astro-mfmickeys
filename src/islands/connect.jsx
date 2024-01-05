@@ -121,6 +121,16 @@ export default function ConnectButton({ info }) {
 
   return (
     <>
+      <h2 class="text-2xl">
+        SOLD OUT! Awaiting listing on{" "}
+        <a
+          class="text-blue-500"
+          href="https://ordex.ai/collection/eth/mfmickeys"
+          target="_blank"
+        >
+          Ordex.io
+        </a>
+      </h2>
       <button
         className={
           `rounded-md px-2 py-1.5 font-semibold` +
@@ -155,7 +165,8 @@ export default function ConnectButton({ info }) {
         }
         onClick={info.ethscription?.data?.result ? () => {} : mintImage}
       >
-        Mint for {price} ETH
+        {/* Mint for {price} ETH */}
+        SOLD OUT
       </button>
       <button
         className="rounded-md bg-orange-500 px-2 py-1.5 font-semibold"
