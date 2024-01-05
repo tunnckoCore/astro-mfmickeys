@@ -123,7 +123,10 @@ export default function ConnectButton({ info }) {
       >
         {address ? "See Account" : "Connect"}
       </button>
-      <div className="flex items-center justify-center text-center">
+      <div className="flex items-center justify-center gap-2 text-center">
+        <div className="">
+          Mfers, Mfpurrs & DigiJoint holders with 50% discount.
+        </div>
         <div className="font-bold">MfMickey #{info.id}</div>
       </div>
 
@@ -134,7 +137,7 @@ export default function ConnectButton({ info }) {
         }
       >
         <img
-          className="h-96 w-full"
+          className="h-96 w-96"
           src={info.url}
           alt={`Ethscription MfMickey #${info.id}`}
         />

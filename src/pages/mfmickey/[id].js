@@ -1,21 +1,6 @@
 import { tryFetch } from "../../utils.mjs";
 
 export async function GET({ params, ...rest }) {
-  const formats = {
-    png: {
-      type: "image/png",
-      ext: "png",
-    },
-    webp: {
-      type: "image/webp",
-      ext: "webp",
-    },
-    json: {
-      type: "application/json",
-      ext: "json",
-    },
-  };
-
   const isTxId = params.id.startsWith("0x") && params.id.length === 66;
   const isSha = params.id && params.id.length === 40;
 
