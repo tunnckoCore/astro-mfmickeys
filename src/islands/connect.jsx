@@ -72,7 +72,12 @@ export default function ConnectButton({ info }) {
   const { data, write } = useContractWrite(config);
   const { isLoading, isSuccess } = useWaitForTransaction({ hash: data?.hash });
 
+  const PAUSE = true;
   const mintImage = async () => {
+    if (PAUSE) {
+      alert("Paused");
+      return;
+    }
     const res = await getEthscriptionBySha(info.sha);
 
     if (res.error) {
